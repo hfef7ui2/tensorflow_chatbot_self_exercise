@@ -329,11 +329,16 @@ if __name__ == '__main__':
 
     print('\n>> Mode : %s\n' %(gConfig['mode']))
 
+    stdout_backup=sys.stdout
     if gConfig['mode'] == 'train':
         # start training
+        log_file=open("train_massage.log","a+")
+        sys.stdout=log_file
         train()
     elif gConfig['mode'] == 'test':
         # interactive decode
+        log_file = open("test_massage.log", "a+")
+        sys.stdout = log_file
         decode()
     else:
         # wrong way to execute "serve"
@@ -341,3 +346,4 @@ if __name__ == '__main__':
         #           uses seq2seq_serve.ini as conf file
         print('Serve Usage : >> python ui/app.py')
         print('# uses seq2seq_serve.ini as conf file')
+    sys.stdout=stdout_backup
